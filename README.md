@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>چالش ۶۰ ثانیه</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: orange;
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.box {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    padding: 25px;
+}
+
+h1 {
+    color: white;
+    font-size: 30px;
+    margin-bottom: 35px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    padding: 20px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#start {
+    background: #00c853;
+}
+
+#noStart {
+    background: #e53935;
+}
+
+#game {
+    display: none;
+}
+
+#timer {
+    font-size: 90px;
+    font-weight: bold;
+    color: #ff3030;
+    margin: 20px 0;
+}
+
+.message {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+#finish {
+    display: none;
+}
+
+.finishEmoji {
+    font-size: 80px;
+}
+
+.finishText {
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <!-- صفحه اول -->
+    <div id="menu">
+
+        <h1>😈 آماده‌ای؟</h1>
+
+        <div class="buttons">
+            <button id="start">شروع کن</button>
+            <button id="noStart">شروع نکن</button>
+        </div>
+
+    </div>
+
+
+    <!-- صفحه تایمر -->
+    <div id="game">
+
+        <div class="message">
+            مهدی جهان<br>
+            اگه تکون بخوری گی هستی 😂
+        </div>
+
+        <div id="timer">60</div>
+
+        <div style="color:white;font-size:22px;">
+            ⏱️ فقط ۶۰ ثانیه تکون نخور!
+        </div>
+
+    </div>
+
+
+    <!-- پایان -->
+    <div id="finish">
+
+        <div class="finishEmoji">🖕</div>
+
+        <div class="finishText">
+            گی بودی 😂
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const startBtn = document.getElementById("start");
+const noStartBtn = document.getElementById("noStart");
+
+const menu = document.getElementById("menu");
+const game = document.getElementById("game");
+const finish = document.getElementById("finish");
+
+const timer = document.getElementById("timer");
+
+let noSize = 1;
+let startSize = 1;
+
+
+// دکمه شروع نکن
+noStartBtn.addEventListener("click", function () {
+
+    noSize -= 0.15;
+    startSize += 0.15;
+
+    if (noSize < 0.25) {
+        noSize = 0.25;
+    }
+
+    if (startSize > 1.8) {
+        startSize = 1.8;
+    }
+
+    noStartBtn.style.transform =
+        `scale(${noSize})`;
+
+    startBtn.style.transform =
+        `scale(${startSize})`;
+
+});
+
+
+// دکمه شروع کن
+startBtn.addEventListener("click", function () {
+
+    menu.style.display = "none";
+    game.style.display = "block";
+
+    let seconds = 60;
+
+    timer.textContent = seconds;
+
+    const countdown = setInterval(function () {
+
+        seconds--;
+
+        timer.textContent = seconds;
+
+        if (seconds <= 0) {
+
+            clearInterval(countdown);
+
+            game.style.display = "none";
+            finish.style.display = "block";
+
+        }
+
+    }, 1000);
+
+});
+
+</script>
+
+</body>
+</html>
